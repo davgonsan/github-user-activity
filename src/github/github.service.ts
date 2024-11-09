@@ -26,6 +26,10 @@ export class GithubService {
         res.on('end', () => {
           if (res.statusCode === 200) {
             resolve(JSON.parse(data));
+          } else if (res.statusCode === 404) {
+            reject('User not found.');
+          } else if (res.statusCode === 403) {
+            reject('API rate limit exceeded. Please try again later.');
           } else {
             reject(`Error ${res.statusCode}: ${res.statusMessage}`);
           }
@@ -33,8 +37,7 @@ export class GithubService {
       });
 
       req.on('error', (error) => {
-        this.logger.error(`Request error: ${error.message}`);
-        reject('Failed to fetch data from GitHub API');
+        reject(`Connection error: ${error.message}`);
       });
 
       req.end();
