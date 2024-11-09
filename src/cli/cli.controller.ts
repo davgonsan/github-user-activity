@@ -1,5 +1,6 @@
 import { Controller, Logger } from '@nestjs/common';
 import { GithubService } from 'src/github/github.service';
+import { format } from 'date-fns'; // Usaremos date-fns para formatear la fecha
 
 @Controller()
 export class CliController {
@@ -10,9 +11,15 @@ export class CliController {
   async getUserActivity(username: string): Promise<void> {
     try {
       const data = await this.githubService.fetchUserActivity(username);
-      console.log(`Activity for ${username}:`);
+      console.log(`\nActivity for ${username}:\n`);
+
       data.forEach((event) => {
-        console.log(`- ${event.type} at ${event.created_at}`);
+        const eventDate = format(
+          new Date(event.created_at),
+          'yyyy-MM-dd HH:mm:ss',
+        );
+        const repoName = event.repo?.name ?? 'Unknown repository';
+        console.log(`- ${event.type} in ${repoName} on ${eventDate}`);
       });
     } catch (error) {
       console.error('Error:', error);
