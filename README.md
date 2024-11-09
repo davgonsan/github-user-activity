@@ -22,9 +22,25 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## GitHub User Activity CLI
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This project is a Command-Line Interface (CLI) application built with NestJS that fetches and displays user activity data from the GitHub API. The application allows users to input a GitHub username, retrieves the latest activities for that user, and displays them in a structured format in the terminal.
+See other projects and ideas in [roadmap.sh](https://roadmap.sh/projects/github-user-activity).
+
+## Features
+* Fetch GitHub Activity: Retrieves recent events such as repository watching, code pushes, and public activity for a specified GitHub user.
+* Customizable Event Limit: Users can specify a maximum number of events to display, providing flexibility in the amount of data returned.
+* Formatted Output: Each event is displayed with a clear timestamp, event type, and repository name to make the output easy to read.
+
+## Error Handling: Gracefully handles various error scenarios
+* Invalid usernames
+* Exceeding the GitHub API rate limit
+* Network and API errors with user-friendly messages
+
+## Technical Details
+* NestJS: A scalable and maintainable framework, ideal for structuring the CLI as a modular, testable application.
+* TypeScript: Ensures type safety, improving code reliability and maintainability.
+* date-fns: Formats event timestamps to make them human-readable.
 
 ## Project setup
 
@@ -32,31 +48,22 @@
 $ npm install
 ```
 
-## Compile and run the project
-
+## How to use
+1. Run the Application: After compiling the project, run it from the terminal with:
 ```bash
-# development
-$ npm run start
+node dist/main.js <username> <maxEvents>
+```
+Replace **username** with the GitHub username you want to check and **maxEvents** (optional) with the number of recent events to fetch.
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+2. Example:
+```bash
+npm run start:cli -- octocat 5
 ```
 
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
+## Potential Future Enhancements
+* Filter by Event Type: Allow users to specify event types they’re interested in (e.g., PushEvent).
+* Save Output to File: Add an option to save activity logs to a file for later review.
+* Extended Data: Retrieve additional details about each event, like commit messages or repository descriptions.
 
 ## Deployment
 
@@ -87,12 +94,6 @@ Check out a few resources that may come in handy when working with NestJS:
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 
